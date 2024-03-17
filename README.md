@@ -8,11 +8,11 @@
 
 
 ## 🌟 프로젝트 사용기술
-** Spring Boot
-** Java
-** MySQL
-** Mybatis
-** gradle
+**Spring Boot**
+**Java**
+**MySQL**
+**Mybatis**
+**gradle**
 
 <br>
 
