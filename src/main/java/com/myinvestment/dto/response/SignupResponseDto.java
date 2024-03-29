@@ -1,4 +1,4 @@
-package com.myinvestment.dto;
+package com.myinvestment.dto.response;
 
 
 import lombok.Builder;

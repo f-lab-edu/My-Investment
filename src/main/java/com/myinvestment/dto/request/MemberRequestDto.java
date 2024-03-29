@@ -1,14 +1,12 @@
-package com.myinvestment.dto;
+package com.myinvestment.dto.request;
 
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 
 @Getter
 @Builder
-@Data
-public class MemberDto {
+public class MemberRequestDto {
 
     private String email;
     private String nickname;

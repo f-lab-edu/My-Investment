@@ -1,23 +1,16 @@
 package com.myinvestment.service;
 
 
-import com.myinvestment.dao.MemberDao;
-import com.myinvestment.dto.LoginDto;
-import com.myinvestment.dto.LoginResponseDto;
-import com.myinvestment.dto.MemberDto;
+import com.myinvestment.dao.Member;
+import com.myinvestment.dto.request.MemberRequestDto;
 import com.myinvestment.mapper.MemberMapper;
-import com.myinvestment.utils.ErrorCode;
-import com.myinvestment.utils.RequestException;
-import com.myinvestment.utils.ResponseDto;
 import com.myinvestment.utils.SessionConfig;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,37 +20,37 @@ public class LoginService {
     private final PasswordEncoder passwordEncoder;
     private final SessionConfig sessionConfig;
 
-
-
     @Transactional
-    public void signup(MemberDto memberDto) {
+    public void signup(MemberRequestDto memberRequestDto) {
 
-        boolean Result = duplicatedId(memberDto.getEmail());
-        if (Result) {
-            throw new RequestException(ErrorCode.USER_DUPLICATION_409);
-        }
-        memberDto.setEncodedPwd(passwordEncoder.encode(memberDto.getPassword()));
-        String memberDao =  memberMapper.insertMember(memberDto);
+        //member 중복 검사
+        isDuplicatedMember(memberRequestDto.getEmail()).ifPresent(member -> {
+            throw new RuntimeException();
+        });
+        //member 생성
+        memberRequestDto.setEncodedPwd(passwordEncoder.encode(memberRequestDto.getPassword()));
+        String memberDao = memberMapper.insertMember(memberRequestDto);
 
     }
 
-    public boolean duplicatedId(String id) {
-        return memberMapper.idCheck(id)==1;
+
+    public Optional<Member> isDuplicatedMember(String email) {
+        return Optional.ofNullable(memberMapper.getMember(email));
     }
 
 
-    @Transactional
-    public ResponseDto<LoginResponseDto> login(LoginDto loginDto, HttpServletResponse response) {
-
-        MemberDao member = memberMapper.getMember(loginDto.getEmail());
-        if(member == null) {
-            throw new RequestException(ErrorCode.LOGIN_NOT_FOUND_404);
-
-        if(!passwordEncoder.matches(loginDto.getPassword(), member.getPassword())) {
-            throw new RequestException(ErrorCode.LOGIN_NOT_FOUND_404);
-        }
-        sessionConfig.createSession(response);
-
-
-        }
+//    @Transactional
+//    public ResponseDto<LoginResponseDto> login(LoginDto loginDto, HttpServletResponse response) {
+//
+//        MemberDao member = memberMapper.getMember(loginDto.getEmail());
+//        if(member == null) {
+//            throw new RequestException(ErrorCode.LOGIN_NOT_FOUND_404);
+//
+//        if(!passwordEncoder.matches(loginDto.getPassword(), member.getPassword())) {
+//            throw new RequestException(ErrorCode.LOGIN_NOT_FOUND_404);
+//        }
+//        sessionConfig.createSession(response);
+//
+//
+//        }
 }

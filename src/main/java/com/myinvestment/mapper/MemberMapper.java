@@ -1,16 +1,14 @@
 package com.myinvestment.mapper;
 
-import com.myinvestment.dao.MemberDao;
-import com.myinvestment.dto.MemberDto;
+import com.myinvestment.dao.Member;
+import com.myinvestment.dto.request.MemberRequestDto;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.Optional;
 
 @Mapper
 public interface MemberMapper {
 
-    MemberDao getMember(String email);
-    String insertMember(MemberDto member);
+    Member getMember(String email);
+    String insertMember(MemberRequestDto member);
 
     int idCheck(String id);
 

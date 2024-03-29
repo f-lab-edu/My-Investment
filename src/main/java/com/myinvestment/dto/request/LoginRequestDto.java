@@ -1,9 +1,9 @@
-package com.myinvestment.dto;
+package com.myinvestment.dto.request;
 
 import lombok.Getter;
 
 @Getter
-public class LoginDto {
+public class LoginRequestDto {
 
     private String email;
     private String password;
