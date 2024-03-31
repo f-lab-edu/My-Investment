@@ -2,9 +2,10 @@ package com.myinvestment.service;
 
 
 import com.myinvestment.dao.Member;
+import com.myinvestment.dao.MemberDao;
 import com.myinvestment.dto.request.MemberRequestDto;
 import com.myinvestment.mapper.MemberMapper;
-import com.myinvestment.utils.SessionConfig;
+//import com.myinvestment.utils.SessionConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,7 @@ public class LoginService {
 
     public final MemberMapper memberMapper;
     private final PasswordEncoder passwordEncoder;
-    private final SessionConfig sessionConfig;
+//    private final SessionConfig sessionConfig;
 
     @Transactional
     public void signup(MemberRequestDto memberRequestDto) {
@@ -29,8 +30,13 @@ public class LoginService {
         });
         //member 생성
         memberRequestDto.setEncodedPwd(passwordEncoder.encode(memberRequestDto.getPassword()));
-        String memberDao = memberMapper.insertMember(memberRequestDto);
+        MemberDao memberDao = MemberDao.builder()
+                .email(memberRequestDto.getEmail())
+                .nickName(memberRequestDto.getNickName())
+                .password(memberRequestDto.getPassword())
+                .build();
 
+        memberMapper.insertMember(memberDao);
     }
 
 

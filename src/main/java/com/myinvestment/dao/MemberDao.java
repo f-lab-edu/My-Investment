@@ -20,9 +20,8 @@ public class MemberDao {
 
 
 
-
-    private int id;
     private String email;
+    private String nickName;
     private String password;
 
 
