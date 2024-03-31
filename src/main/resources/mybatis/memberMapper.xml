@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myinvestment.mapper.MemberMapper">
+    <insert id="insertMember" parameterType="com.myinvestment.dao.Member">
+        INSERT INTO member(email, nickname, password)
+        VALUES (#{email}, #{nickname}, #{password}
+    </insert>
+
+    <select id="getMember" parameterType="Member" resultType="Member">
+        SELECT
+        FROM
+        member
+        WHERE
+        email = #{email}
+    </select>
+
+</mapper>

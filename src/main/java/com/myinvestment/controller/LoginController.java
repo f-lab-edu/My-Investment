@@ -1,7 +1,12 @@
 package com.myinvestment.controller;
 
+import com.myinvestment.dto.request.LoginRequestDto;
 import com.myinvestment.dto.request.MemberRequestDto;
+import com.myinvestment.dto.response.LoginResponseDto;
+import com.myinvestment.dto.response.SignupResponseDto;
 import com.myinvestment.service.LoginService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ReactiveAdapterRegistry;
@@ -21,13 +26,20 @@ public class LoginController {
     private final LoginService loginService;
 
     @PostMapping("/v1/signup")
-    public ResponseEntity<Void> signup(@RequestBody @Valid MemberRequestDto memberRequestDto) {
+    public ResponseEntity<SignupResponseDto> signup(@RequestBody MemberRequestDto memberRequestDto) {
         loginService.signup(memberRequestDto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        SignupResponseDto dto = new SignupResponseDto("a");
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
-//    @PostMapping("/login")
-//    public ResponseDto<LoginResponseDto> Login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
-//        return loginService.login(loginDto, response);
-//    }
+    @PostMapping("/v1/login")
+    public ResponseEntity<LoginResponseDto> Login(@RequestBody LoginRequestDto loginRequestDto, HttpServletRequest httpServletRequest) {
+        loginService.login(loginRequestDto);
+
+        HttpSession session = httpServletRequest.getSession();
+        session.setAttribute("loginMember", loginRequestDto.getEmail());
+        session.setMaxInactiveInterval(60 * 30);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

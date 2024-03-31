@@ -27,28 +27,28 @@ public class SessionConfig {
         response.addCookie(mySessionCookie);
     }
 
-    public Object getSession(HttpServletRequest request) {
-        Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
-        if(sessionCookie == null) {
-            return null;
-        }
-        return sessionStore.get(sessionCookie.getValue());
-    }
+//    public Object getSession(HttpServletRequest request) {
+//        Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
+//        if(sessionCookie == null) {
+//            return null;
+//        }
+//        return sessionStore.get(sessionCookie.getValue());
+//    }
+//
+//    public void expire(HttpServletRequest request) {
+//        Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
+//        if(sessionCookie != null){
+//            sessionStore.remove(sessionCookie.getValue());
+//        }
+//    }
 
-    public void expire(HttpServletRequest request) {
-        Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
-        if(sessionCookie != null){
-            sessionStore.remove(sessionCookie.getValue());
-        }
-    }
-
-    public Cookie findCookie(HttpServletRequest request, String cookieName){
-        if(request.getCookies() == null){
-            return null;
-        }
-        return Arrays.stream(request.getCookies().filter(cookie -> cookie.getName().equals(cookieName)))
-                .find
-    }
+//    public Cookie findCookie(HttpServletRequest request, String cookieName){
+//        if(request.getCookies() == null){
+//            return null;
+//        }
+//        return Arrays.stream(request.getCookies().filter(cookie -> cookie.getName().equals(cookieName)))
+//                .find
+//    }
 
 
 }
