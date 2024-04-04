@@ -38,13 +38,13 @@ public class LoginService {
         });
         //member 생성
         memberRequestDto.setEncodedPwd(passwordEncoder.encode(memberRequestDto.getPassword()));
-        MemberDao memberDao = MemberDao.builder()
+        Member member = Member.builder()
                 .email(memberRequestDto.getEmail())
-                .nickName(memberRequestDto.getNickName())
+                .nickname(memberRequestDto.getNickname())
                 .password(memberRequestDto.getPassword())
                 .build();
 
-        memberMapper.insertMember(memberDao);
+        memberMapper.insertMember(member);
     }
 
 

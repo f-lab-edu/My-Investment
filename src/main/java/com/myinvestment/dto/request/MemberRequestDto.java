@@ -16,14 +16,14 @@ public class MemberRequestDto {
 //    @NotBlank(message = "이메일은 필수 입력 값 입니다.")
     private String email;
 
-    private String nickName;
+    private String nickname;
 
 //    @NotBlank(message = "비밀번호는 필수 입력 값 입니다.")
     private String password;
 
-    public MemberRequestDto(String email, String nickName, String password) {
+    public MemberRequestDto(String email, String nickname, String password) {
         this.email = email;
-        this.nickName = nickName;
+        this.nickname = nickname;
         this.password = password;
     }
     public void setEncodedPwd(String encodedPwd) {

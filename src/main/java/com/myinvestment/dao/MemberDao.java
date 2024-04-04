@@ -1,5 +1,6 @@
 package com.myinvestment.dao;
 
+import com.myinvestment.mapper.MemberMapper;
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,9 +19,11 @@ public class MemberDao {
 //
 //    DTO -> DTO는 로직을 가지지 않는 데이터 객체 그 자체( 객체 틀정도)
 
-    private String email;
-    private String nickName;
-    private String password;
+    MemberMapper mapper;
+
+    public Member insertMember(Member member){
+        return mapper.insertMember(member);
+    }
 
 
 }

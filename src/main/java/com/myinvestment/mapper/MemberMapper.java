@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface MemberMapper {
 
     Optional<Member> getMember(String email);
-    String insertMember(MemberDao memberDao);
+    Member insertMember(Member member);
 
     int idCheck(String id);
 
