@@ -1,7 +1,7 @@
 package com.myinvestment.utils;
 
 
-import com.myinvestment.dao.Member;
+import com.myinvestment.dao.MemberDao;
 import com.myinvestment.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,13 +24,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        Member member = memberMapper.getMember(email).
+        MemberDao member = memberMapper.getMember(email).
                 orElseThrow(() -> new RuntimeException("Not Found Account")
                 );
         return createUserDetails(member);
     }
 
-    private UserDetails createUserDetails(Member member) {
+    private UserDetails createUserDetails(MemberDao member) {
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("member");
 
         return new User(

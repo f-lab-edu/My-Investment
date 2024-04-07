@@ -28,18 +28,18 @@ public class LoginController {
     @PostMapping("/v1/signup")
     public ResponseEntity<SignupResponseDto> signup(@RequestBody MemberRequestDto memberRequestDto) {
         loginService.signup(memberRequestDto);
-        SignupResponseDto dto = new SignupResponseDto("a");
+        SignupResponseDto dto = new SignupResponseDto(memberRequestDto.getEmail());
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
-    @PostMapping("/v1/login")
-    public ResponseEntity<LoginResponseDto> Login(@RequestBody LoginRequestDto loginRequestDto, HttpServletRequest httpServletRequest) {
-        loginService.login(loginRequestDto);
-
-        HttpSession session = httpServletRequest.getSession();
-        session.setAttribute("loginMember", loginRequestDto.getEmail());
-        session.setMaxInactiveInterval(60 * 30);
-
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
+//    @PostMapping("/v1/login")
+//    public ResponseEntity<LoginResponseDto> Login(@RequestBody LoginRequestDto loginRequestDto, HttpServletRequest httpServletRequest) {
+//        loginService.login(loginRequestDto);
+//
+//        HttpSession session = httpServletRequest.getSession();
+//        session.setAttribute("loginMember", loginRequestDto.getEmail());
+//        session.setMaxInactiveInterval(60 * 30);
+//
+//        return ResponseEntity.status(HttpStatus.OK).build();
+//    }
 }

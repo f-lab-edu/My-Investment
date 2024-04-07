@@ -1,6 +1,6 @@
 package com.myinvestment.utils;
 
-import com.myinvestment.dao.Member;
+import com.myinvestment.dao.MemberDao;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,7 +9,7 @@ import java.util.Collection;
 public class UserDetailsImpl implements UserDetails {
 
 
-    public Member member;
+    public MemberDao member;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

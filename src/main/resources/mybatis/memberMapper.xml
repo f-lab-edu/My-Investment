@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myinvestment.mapper.MemberMapper">
-    <insert id="insertMember" parameterType="java.lang.String">
+    <insert id="insertMember" parameterType="com.myinvestment.dao.MemberDao">
         INSERT INTO member(email, nickname, password)
         VALUES (#{email}, #{nickname}, #{password})
     </insert>
