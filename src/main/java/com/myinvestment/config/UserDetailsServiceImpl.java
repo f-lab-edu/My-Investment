@@ -1,4 +1,4 @@
-package com.myinvestment.utils;
+package com.myinvestment.config;
 
 
 import com.myinvestment.dao.MemberDao;

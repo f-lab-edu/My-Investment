@@ -1,4 +1,4 @@
-package com.myinvestment.utils;
+package com.myinvestment.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

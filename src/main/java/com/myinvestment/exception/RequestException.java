@@ -1,4 +1,4 @@
-package com.myinvestment.utils;
+package com.myinvestment.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

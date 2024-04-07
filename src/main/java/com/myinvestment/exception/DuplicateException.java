@@ -1,4 +1,4 @@
-package com.myinvestment.utils;
+package com.myinvestment.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
