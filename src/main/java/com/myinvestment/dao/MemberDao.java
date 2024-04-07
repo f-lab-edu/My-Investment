@@ -1,8 +1,6 @@
 package com.myinvestment.dao;
 
-import com.myinvestment.mapper.MemberMapper;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 
 @Getter

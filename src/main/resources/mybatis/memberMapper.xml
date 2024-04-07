@@ -8,13 +8,31 @@
         VALUES (#{email}, #{nickname}, #{password})
     </insert>
 
-    <select id="getMember" parameterType="java.lang.String" resultType="com.myinvestment.dao.Member">
+    <select id="getMember" parameterType="java.lang.String" resultType="com.myinvestment.dao.MemberDao">
         SELECT
         *
         FROM
         member
         WHERE
         email = #{email}
+    </select>
+
+    <select id="memberCheck" parameterType="java.lang.String" resultType="com.myinvestment.dao.MemberDao">
+        SELECT
+        *
+        FROM
+        member
+        WHERE
+        email = #{email}
+    </select>
+
+    <select id="passwordCheck" parameterType="java.lang.String" resultType="com.myinvestment.dao.MemberDao">
+        SELECT
+        *
+        FROM
+        member
+        WHERE
+        password = #{password}
     </select>
 
 </mapper>

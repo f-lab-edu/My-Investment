@@ -1,12 +1,10 @@
 package com.myinvestment.service;
 
-
 import com.myinvestment.dao.MemberDao;
 import com.myinvestment.dto.request.LoginRequestDto;
 import com.myinvestment.dto.request.MemberRequestDto;
 import com.myinvestment.dto.response.LoginResponseDto;
 import com.myinvestment.mapper.MemberMapper;
-//import com.myinvestment.utils.SessionConfig;
 import com.myinvestment.utils.DuplicateException;
 import com.myinvestment.utils.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +19,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class LoginService {
 
-    public final MemberMapper memberMapper;
+    private final MemberMapper memberMapper;
     private final PasswordEncoder passwordEncoder;
-//    private final SessionConfig sessionConfig;
 
     @Transactional
     public void signup(MemberRequestDto memberRequestDto) {
@@ -43,29 +40,28 @@ public class LoginService {
         memberMapper.insertMember(memberDao);
     }
 
+    @Transactional
+    public ResponseEntity<LoginResponseDto> login(LoginRequestDto loginRequestDto) {
 
+        MemberDao memberDao = memberMapper.memberCheck(loginRequestDto.getEmail()).orElseThrow(
+                ()-> new DuplicateException(ErrorCode.LOGIN_NOT_FOUND_404)
+
+        );
+        passwordCheck(loginRequestDto.getPassword()).ifPresent(member -> {
+            throw new DuplicateException(ErrorCode.LOGIN_NOT_FOUND_404);
+        });
+
+        return ResponseEntity.ok(
+                LoginResponseDto.builder()
+                        .email(memberDao.getEmail())
+                        .build()
+        );
+        }
     public Optional<MemberDao> isDuplicatedMember(String email) {
-
         return memberMapper.getMember(email);
-//        return Optional.ofNullable(memberMapper.getMember(email));
     }
 
-
-//    @Transactional
-//    public ResponseEntity<LoginResponseDto> login(LoginRequestDto loginRequestDto) {
-//
-//        //이메일 확인
-//        isDuplicatedMember(LoginRequestDto.
-//
-//
-//        isDuplicatedMember(memberRequestDto.getEmail()).ifPresent(member -> {
-//            throw new DuplicateException(ErrorCode.USER_DUPLICATION_409);
-//        });
-//
-//        return ResponseEntity.ok(
-//                LoginResponseDto.builder()
-//                        .email(member.getEmail())
-//                        .build()
-//        );
-//        }
+    public Optional<MemberDao> passwordCheck(String password) {
+        return memberMapper.passwordCheck(password);
+    }
 }

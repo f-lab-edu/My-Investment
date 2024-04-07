@@ -9,9 +9,10 @@ import java.util.Optional;
 public interface MemberMapper {
 
     Optional<MemberDao> getMember(String email);
+    Optional<MemberDao> memberCheck(String email);
+    Optional<MemberDao> passwordCheck(String password);
     int insertMember(MemberDao memberDao);
 
-    int idCheck(String id);
 
 
 }
