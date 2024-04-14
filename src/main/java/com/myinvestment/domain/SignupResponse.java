@@ -1,15 +1,17 @@
-package com.myinvestment.dto.response;
+package com.myinvestment.domain;
 
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class SignupResponseDto {
+@Builder
+public class SignupResponse {
 
     private String email;
 
-    public SignupResponseDto(String email) {
+
+    public SignupResponse(String email) {
         this.email = email;
     }
 }

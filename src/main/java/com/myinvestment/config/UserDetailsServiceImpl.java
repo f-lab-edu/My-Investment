@@ -1,7 +1,7 @@
 package com.myinvestment.config;
 
 
-import com.myinvestment.dao.MemberDao;
+import com.myinvestment.domain.Member;
 import com.myinvestment.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,13 +24,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        MemberDao member = memberMapper.getMember(email).
+        Member member = memberMapper.getMember(email).
                 orElseThrow(() -> new RuntimeException("Not Found Account")
                 );
         return createUserDetails(member);
     }
 
-    private UserDetails createUserDetails(MemberDao member) {
+    private UserDetails createUserDetails(Member member) {
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("member");
 
         return new User(
@@ -39,15 +39,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 Collections.singleton(grantedAuthority)
         );
     }
-
-//        isDuplicatedMember(memberMapper.getMember(email)).orElseThrow()
-    }
-
-//    isDuplicatedMember(memberRequestDto.getEmail()).ifPresent(member -> {
-//        throw new RuntimeException();
-//    });
-//
-//    public Optional<Member> isDuplicatedMember(String email) {
-//        return Optional.ofNullable(memberMapper.getMember(email));
-//    }
-
+}

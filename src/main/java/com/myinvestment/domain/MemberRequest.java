@@ -1,17 +1,15 @@
-package com.myinvestment.dto.request;
+package com.myinvestment.domain;
 
 
 
 
 
-import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class MemberRequestDto {
+public class MemberRequest {
 
 //    @NotBlank(message = "이메일은 필수 입력 값 입니다.")
     private String email;
@@ -21,7 +19,7 @@ public class MemberRequestDto {
 //    @NotBlank(message = "비밀번호는 필수 입력 값 입니다.")
     private String password;
 
-    public MemberRequestDto(String email, String nickname, String password) {
+    public MemberRequest(String email, String nickname, String password) {
         this.email = email;
         this.nickname = nickname;
         this.password = password;

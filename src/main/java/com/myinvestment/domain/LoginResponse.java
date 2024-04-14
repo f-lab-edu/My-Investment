@@ -1,4 +1,4 @@
-package com.myinvestment.dto.response;
+package com.myinvestment.domain;
 
 
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginResponseDto {
+public class LoginResponse {
 
     private String email;
 

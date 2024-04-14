@@ -1,9 +1,9 @@
 package com.myinvestment.controller;
 
-import com.myinvestment.dto.request.LoginRequestDto;
-import com.myinvestment.dto.request.MemberRequestDto;
-import com.myinvestment.dto.response.LoginResponseDto;
-import com.myinvestment.dto.response.SignupResponseDto;
+import com.myinvestment.domain.LoginRequest;
+import com.myinvestment.domain.MemberRequest;
+import com.myinvestment.domain.LoginResponse;
+import com.myinvestment.domain.SignupResponse;
 import com.myinvestment.service.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -24,20 +24,21 @@ public class LoginController {
     private final LoginService loginService;
 
     @PostMapping("/v1/signup")
-    public ResponseEntity<SignupResponseDto> signup(@RequestBody MemberRequestDto memberRequestDto) {
-        loginService.signup(memberRequestDto);
-        SignupResponseDto dto = new SignupResponseDto(memberRequestDto.getEmail());
+    public ResponseEntity<SignupResponse> signup(@RequestBody MemberRequest memberRequest) {
+        loginService.signup(memberRequest);
+        SignupResponse dto = new SignupResponse(memberRequest.getEmail());
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
     @PostMapping("/v1/login")
-    public ResponseEntity<LoginResponseDto> Login(@RequestBody LoginRequestDto loginRequestDto, HttpServletRequest httpServletRequest) {
-        loginService.login(loginRequestDto);
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest,
+                                               HttpServletRequest httpServletRequest) {
+        loginService.login(loginRequest);
 
         HttpSession session = httpServletRequest.getSession();
-        session.setAttribute("loginMember", loginRequestDto.getEmail());
+        session.setAttribute("loginMember", loginRequest.getEmail());
         session.setMaxInactiveInterval(60 * 30);
-        LoginResponseDto dto = new LoginResponseDto(loginRequestDto.getEmail());
+        LoginResponse dto = new LoginResponse(loginRequest.getEmail());
 
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }

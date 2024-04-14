@@ -1,16 +1,16 @@
-package com.myinvestment.dto.request;
+package com.myinvestment.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class LoginRequestDto {
+public class LoginRequest {
 
     private String email;
     private String password;
 
-    public LoginRequestDto(String email, String password) {
+    public LoginRequest(String email, String password) {
         this.email = email;
         this.password = password;
     }

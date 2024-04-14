@@ -3,12 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myinvestment.mapper.MemberMapper">
-    <insert id="insertMember" parameterType="com.myinvestment.dao.MemberDao">
+    <insert id="insertMember" parameterType="com.myinvestment.domain.Member">
         INSERT INTO member(email, nickname, password)
         VALUES (#{email}, #{nickname}, #{password})
     </insert>
 
-    <select id="getMember" parameterType="java.lang.String" resultType="com.myinvestment.dao.MemberDao">
+    <select id="getMember" parameterType="java.lang.String" resultType="com.myinvestment.domain.Member">
         SELECT
         *
         FROM
@@ -17,7 +17,7 @@
         email = #{email}
     </select>
 
-    <select id="memberCheck" parameterType="java.lang.String" resultType="com.myinvestment.dao.MemberDao">
+    <select id="memberCheck" parameterType="java.lang.String" resultType="com.myinvestment.domain.Member">
         SELECT
         *
         FROM
@@ -26,7 +26,7 @@
         email = #{email}
     </select>
 
-    <select id="passwordCheck" parameterType="java.lang.String" resultType="com.myinvestment.dao.MemberDao">
+    <select id="passwordCheck" parameterType="java.lang.String" resultType="com.myinvestment.domain.Member">
         SELECT
         *
         FROM
