@@ -17,20 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/member")
+@RequestMapping("/v1/member")
 public class LoginController {
 
 
     private final LoginService loginService;
 
-    @PostMapping("/v1/signup")
+    @PostMapping("/signup")
     public ResponseEntity<SignupResponse> signup(@RequestBody MemberRequest memberRequest) {
         loginService.signup(memberRequest);
         SignupResponse dto = new SignupResponse(memberRequest.getEmail());
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
-    @PostMapping("/v1/login")
+    @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest,
                                                HttpServletRequest httpServletRequest) {
         loginService.login(loginRequest);

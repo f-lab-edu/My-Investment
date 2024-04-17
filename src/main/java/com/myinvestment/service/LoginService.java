@@ -1,14 +1,12 @@
 package com.myinvestment.service;
 
-import com.myinvestment.domain.Member;
+import com.myinvestment.domain.*;
 import com.myinvestment.dto.ResponseDto;
-import com.myinvestment.domain.LoginRequest;
-import com.myinvestment.domain.MemberRequest;
-import com.myinvestment.domain.LoginResponse;
 import com.myinvestment.mapper.MemberMapper;
 import com.myinvestment.exception.DuplicateException;
 import com.myinvestment.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +38,7 @@ public class LoginService {
 
 
     @Transactional
-    public ResponseEntity<LoginResponse> login(LoginRequest loginRequest) {
+    public ResponseDto login(LoginRequest loginRequest) {
 
         Member member = memberMapper.memberCheck(loginRequest.getEmail()).orElseThrow(
                 ()-> new DuplicateException(ErrorCode.LOGIN_NOT_FOUND_404)
@@ -50,11 +48,7 @@ public class LoginService {
             throw new DuplicateException(ErrorCode.LOGIN_NOT_FOUND_404);
         });
 
-        return ResponseEntity.ok(
-                LoginResponse.builder()
-                        .email(member.getEmail())
-                        .build()
-        );
+        return new ResponseDto(loginRequest.getEmail()) ;
         }
 
     private void validateDuplication(MemberRequest memberRequest) {
