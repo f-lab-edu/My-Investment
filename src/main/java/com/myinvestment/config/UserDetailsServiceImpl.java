@@ -2,6 +2,8 @@ package com.myinvestment.config;
 
 
 import com.myinvestment.domain.Member;
+import com.myinvestment.exception.AccountNotFoundException;
+import com.myinvestment.exception.ErrorCode;
 import com.myinvestment.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         Member member = memberMapper.getMember(email).
-                orElseThrow(() -> new RuntimeException("Not Found Account")
+                orElseThrow(() -> new AccountNotFoundException(ErrorCode.ACCOUNT_NOT_FOUND_404)
                 );
         return createUserDetails(member);
     }
