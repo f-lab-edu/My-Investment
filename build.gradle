@@ -4,12 +4,20 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.4'
 }
 
+ext {
+    springBootVersion = '3.2.3'
+    mybatisSpringBootStarterVersion = '3.0.3'
+    lombokVersion = '1.18.22'
+
+}
+
 group = 'com.my-investment'
 version = '0.0.1-SNAPSHOT'
 
 java {
     sourceCompatibility = '17'
 }
+
 
 jar {
     enabled = false
@@ -27,18 +35,18 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootStarterVersion"
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation "org.springframework.boot:spring-boot-starter-jdbc"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
 
-    compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.mysql:mysql-connector-j'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    runtimeOnly "com.mysql:mysql-connector-j"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
+
 
 tasks.named('test') {
     useJUnitPlatform()
