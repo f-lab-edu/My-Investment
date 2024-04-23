@@ -7,6 +7,7 @@ import com.myinvestment.domain.SignupResponse;
 import com.myinvestment.service.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class LoginController {
     LoginRequest email = new LoginRequest();
 
     @PostMapping("/signup")
-    public ResponseEntity<SignupResponse> signup(@RequestBody MemberRequest memberRequest) {
+    public ResponseEntity<SignupResponse> signup(@RequestBody @Valid MemberRequest memberRequest) {
         loginService.signup(memberRequest);
         SignupResponse dto = new SignupResponse(memberRequest.getEmail());
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
