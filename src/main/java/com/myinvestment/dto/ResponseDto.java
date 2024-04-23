@@ -1,7 +1,6 @@
 package com.myinvestment.dto;
 
 
-import ch.qos.logback.core.spi.ErrorCodes;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,19 +11,24 @@ import org.springframework.http.HttpStatus;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseDto<T> {
+public class ResponseDto {
 
-    private boolean fail;
+    private boolean success;
     private String result;
     private Error error;
 
-    public static <T> ResponseDto<T> fail(HttpStatus httpStatus, String message) {
-        return new ResponseDto<>(false, null, new Error(httpStatus, message));
+
+    public static <T> ResponseDto success(String result) {
+        return new ResponseDto(true, result, null);
+    }
+
+    public static <T> ResponseDto fail(HttpStatus httpStatus, String message) {
+        return new ResponseDto(false, null, new Error(httpStatus, message));
     }
 
     @Getter
     @AllArgsConstructor
-    static class Error{
+    static class Error {
         private HttpStatus httpStatus;
         private String message;
     }

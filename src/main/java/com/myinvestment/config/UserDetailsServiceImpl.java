@@ -28,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         Member member = memberMapper.getMember(email).
-                orElseThrow(() -> new AccountNotFoundException(ErrorCode.ACCOUNT_NOT_FOUND_404)
+                orElseThrow(() -> new AccountNotFoundException(ErrorCode.ACCOUNT_NOT_FOUND)
                 );
         return createUserDetails(member);
     }

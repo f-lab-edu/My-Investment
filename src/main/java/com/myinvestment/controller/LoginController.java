@@ -1,8 +1,8 @@
 package com.myinvestment.controller;
 
 import com.myinvestment.domain.LoginRequest;
-import com.myinvestment.domain.MemberRequest;
 import com.myinvestment.domain.LoginResponse;
+import com.myinvestment.domain.MemberRequest;
 import com.myinvestment.domain.SignupResponse;
 import com.myinvestment.service.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +22,7 @@ public class LoginController {
 
 
     private final LoginService loginService;
+    LoginRequest email = new LoginRequest();
 
     @PostMapping("/signup")
     public ResponseEntity<SignupResponse> signup(@RequestBody MemberRequest memberRequest) {
@@ -33,7 +34,7 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest,
                                                HttpServletRequest httpServletRequest) {
-        loginService.login(loginRequest);
+        loginService.login(loginRequest.getEmail(), loginRequest.getPassword());
 
         HttpSession session = httpServletRequest.getSession();
         session.setAttribute("loginMember", loginRequest.getEmail());

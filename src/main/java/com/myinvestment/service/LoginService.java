@@ -1,16 +1,15 @@
 package com.myinvestment.service;
 
-import com.myinvestment.domain.*;
+import com.myinvestment.domain.Member;
+import com.myinvestment.domain.MemberRequest;
 import com.myinvestment.dto.ResponseDto;
-import com.myinvestment.mapper.MemberMapper;
-import com.myinvestment.exception.DuplicateException;
 import com.myinvestment.exception.ErrorCode;
+import com.myinvestment.exception.RequestException;
+import com.myinvestment.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -33,29 +32,32 @@ public class LoginService {
                 .password(passwordEncoder.encode(memberRequest.getPassword()))
                 .build());
 
-        return new ResponseDto(memberRequest.getEmail());
+        return ResponseDto.success(
+                memberRequest.getEmail());
     }
 
 
     @Transactional
-    public ResponseDto login(LoginRequest loginRequest) {
+    public ResponseDto login(String email, String password) {
 
-        Member member = memberMapper.memberCheck(loginRequest.getEmail()).orElseThrow(
-                ()-> new DuplicateException(ErrorCode.LOGIN_NOT_FOUND_404)
+        Member member = memberMapper.memberCheck(email).orElseThrow(
+                () -> new RequestException(ErrorCode.ACCOUNT_NOT_FOUND)
 
         );
-        passwordCheck(loginRequest.getPassword()).ifPresent(Member -> {
-            throw new DuplicateException(ErrorCode.LOGIN_NOT_FOUND_404);
+        passwordCheck(password).ifPresent(Member -> {
+            throw new RequestException(ErrorCode.LOGIN_FAILED);
         });
 
-        return new ResponseDto(loginRequest.getEmail()) ;
-        }
+        return ResponseDto.success(
+                member.getEmail());
+    }
 
     private void validateDuplication(MemberRequest memberRequest) {
         memberMapper.getMember(memberRequest.getEmail()).ifPresent(member -> {
-            throw new DuplicateException(ErrorCode.USER_DUPLICATION_409);
+            throw new RequestException(ErrorCode.USER_DUPLICATION);
         });
     }
+
     public Optional<Member> passwordCheck(String password) {
         return memberMapper.passwordCheck(password);
     }

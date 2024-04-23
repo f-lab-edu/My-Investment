@@ -9,10 +9,12 @@ import java.util.Optional;
 public interface MemberMapper {
 
     Optional<Member> getMember(String email);
-    Optional<Member> memberCheck(String email);
-    Optional<Member> passwordCheck(String password);
-    int insertMember(Member member);
 
+    Optional<Member> memberCheck(String email);
+
+    Optional<Member> passwordCheck(String password);
+
+    int insertMember(Member member);
 
 
 }
