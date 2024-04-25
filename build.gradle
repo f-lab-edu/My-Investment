@@ -8,6 +8,7 @@ ext {
     springBootVersion = '3.2.3'
     mybatisSpringBootStarterVersion = '3.0.3'
     lombokVersion = '1.18.22'
+    mysqlVersion = '8.3.0'
 
 }
 
@@ -37,14 +38,14 @@ repositories {
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
     implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootStarterVersion"
-    implementation "org.springframework.boot:spring-boot-starter-security"
-    implementation "org.springframework.boot:spring-boot-starter-jdbc"
-    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation "org.springframework.boot:spring-boot-starter-security:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-validation:$springBootVersion"
 
     compileOnly "org.projectlombok:lombok:$lombokVersion"
-    runtimeOnly "com.mysql:mysql-connector-j"
+    runtimeOnly "com.mysql:mysql-connector-j:$mysqlVersion"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
-    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
 }
 
 

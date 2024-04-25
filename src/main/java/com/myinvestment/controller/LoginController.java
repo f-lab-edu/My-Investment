@@ -23,7 +23,6 @@ public class LoginController {
 
 
     private final LoginService loginService;
-    LoginRequest email = new LoginRequest();
 
     @PostMapping("/signup")
     public ResponseEntity<SignupResponse> signup(@RequestBody @Valid MemberRequest memberRequest) {
@@ -35,12 +34,12 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest,
                                                HttpServletRequest httpServletRequest) {
-        loginService.login(loginRequest.getEmail(), loginRequest.getPassword());
+        loginService.login(loginRequest.email(), loginRequest.password());
 
         HttpSession session = httpServletRequest.getSession();
-        session.setAttribute("loginMember", loginRequest.getEmail());
+        session.setAttribute("loginMember", loginRequest.email());
         session.setMaxInactiveInterval(60 * 30);
-        LoginResponse dto = new LoginResponse(loginRequest.getEmail());
+        LoginResponse dto = new LoginResponse(loginRequest.email());
 
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
